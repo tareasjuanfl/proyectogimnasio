@@ -12,18 +12,18 @@
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
-<dependency>
-    <groupId>net.sf.jasperreports</groupId>
-    <artifactId>jasperreports</artifactId>
-    <version>6.1.0</version>
-</dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.1.0</version>
+        </dependency>
 
-<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-<dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>5.1.6</version>
-</dependency>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.6</version>
+        </dependency>
 
     </dependencies>
     <name>ProyectoGimnasio</name>
