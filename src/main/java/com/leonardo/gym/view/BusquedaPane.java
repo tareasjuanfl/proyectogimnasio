@@ -6,6 +6,7 @@
 package com.leonardo.gym.view;
 
 import com.leonardo.gym.dao.ClientesDAO;
+import com.leonardo.gym.model.Clientes;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -22,9 +23,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class BusquedaPane extends javax.swing.JDialog {
 
-    DefaultTableModel modelo;
-    ResultSet rs;
-    ClientesDAO cliente = new ClientesDAO();
+    private DefaultTableModel modelo;
+    private ResultSet rs;
+    private ClientesDAO cliente = new ClientesDAO();
+    private FormPrueba pantallaPrincipal;
 
     /**
      * Creates new form BusquedaPane
@@ -32,6 +34,7 @@ public class BusquedaPane extends javax.swing.JDialog {
     public BusquedaPane(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        pantallaPrincipal = (FormPrueba) parent;
         modelo = (DefaultTableModel) tabClientes.getModel();
     }
 
@@ -236,10 +239,27 @@ public class BusquedaPane extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        int fila;
+
+        fila = tabClientes.getSelectedRow();
+        if (fila != -1) {
+            // Pasamos los datos al padre
+            Clientes cliente = new Clientes();
+            cliente.setId_cliente(Integer.parseInt(tabClientes.getValueAt(fila, 0).toString()));
+            cliente.setNombre(tabClientes.getValueAt(fila, 1).toString());
+            cliente.setApellidos(tabClientes.getValueAt(fila, 2).toString());
+            cliente.setNif( tabClientes.getValueAt(fila, 3).toString());
+            cliente.setTelefono_fijo(Integer.parseInt(tabClientes.getValueAt(fila, 4).toString()));
+            //cliente.setEmail(tabClientes.getValueAt(fila, 5).toString());
+            
+            pantallaPrincipal.pondatos(cliente);
+            dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
