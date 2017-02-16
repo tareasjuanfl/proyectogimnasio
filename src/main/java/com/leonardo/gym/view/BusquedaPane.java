@@ -27,14 +27,22 @@ public class BusquedaPane extends javax.swing.JDialog {
     private ResultSet rs;
     private ClientesDAO cliente = new ClientesDAO();
     private FormPrueba pantallaPrincipal;
+    private FormPrueba1 pantallaPrincipal1;
+    private int tipo;
 
     /**
      * Creates new form BusquedaPane
      */
-    public BusquedaPane(java.awt.Frame parent, boolean modal) {
+    public BusquedaPane(java.awt.Frame parent, boolean modal, int tipo) {
         super(parent, modal);
         initComponents();
-        pantallaPrincipal = (FormPrueba) parent;
+
+        if (tipo == 0) {
+            pantallaPrincipal = (FormPrueba) parent;
+        } else {
+            pantallaPrincipal1 = (FormPrueba1) parent;
+        }
+
         modelo = (DefaultTableModel) tabClientes.getModel();
     }
 
@@ -230,6 +238,10 @@ public class BusquedaPane extends javax.swing.JDialog {
             if (!rs.last()) {
                 JOptionPane.showMessageDialog(null, "No se encontraron usuarios con esos datos");
             }
+            else {
+                // Seleccionar uno de la tabla
+                tabClientes.selectAll();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(BusquedaPane.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -248,11 +260,15 @@ public class BusquedaPane extends javax.swing.JDialog {
             cliente.setId_cliente(Integer.parseInt(tabClientes.getValueAt(fila, 0).toString()));
             cliente.setNombre(tabClientes.getValueAt(fila, 1).toString());
             cliente.setApellidos(tabClientes.getValueAt(fila, 2).toString());
-            cliente.setNif( tabClientes.getValueAt(fila, 3).toString());
+            cliente.setNif(tabClientes.getValueAt(fila, 3).toString());
             cliente.setTelefono_fijo(Integer.parseInt(tabClientes.getValueAt(fila, 4).toString()));
             //cliente.setEmail(tabClientes.getValueAt(fila, 5).toString());
-            
-            pantallaPrincipal.pondatos(cliente);
+
+            if (tipo == 0) {
+                pantallaPrincipal.pondatos(cliente);
+            } else {
+                pantallaPrincipal1.pondatos(cliente);
+            }
             dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -292,7 +308,7 @@ public class BusquedaPane extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                BusquedaPane busqueda = new BusquedaPane(new javax.swing.JFrame(), true);
+                BusquedaPane busqueda = new BusquedaPane(new javax.swing.JFrame(), true, 0);
                 busqueda.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
